@@ -32,12 +32,12 @@
     min-height: 100vh;
   }
 
-  /* ── SCREEN SYSTEM ── */
+  /* -- SCREEN SYSTEM -- */
   .screen { display: none; }
   .screen.active { display: flex; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ── HEADER ── */
+  /* -- HEADER -- */
   .header {
     background: var(--forest);
     padding: 20px 32px;
@@ -86,7 +86,7 @@
   .dot.active { background: var(--sage-light); }
   .dot.done { background: var(--sage); }
 
-  /* ── INTRO SCREEN ── */
+  /* -- INTRO SCREEN -- */
   #screen-intro {
     justify-content: center;
     align-items: center;
@@ -174,7 +174,7 @@
   }
   .privacy-note svg { flex-shrink: 0; }
 
-  /* ── BODY MAP SCREEN ── */
+  /* -- BODY MAP SCREEN -- */
   #screen-bodymap {
     background: linear-gradient(160deg, var(--cream) 50%, var(--sage-pale) 100%);
   }
@@ -271,7 +271,7 @@
   }
   .hotspot-inner.pulse { animation: pulse 2s infinite; }
 
-  /* ── CONCERN PANEL ── */
+  /* -- CONCERN PANEL -- */
   .bodymap-right {
     flex: 1;
     min-width: 0;
@@ -409,7 +409,7 @@
   .btn-next:hover { background: var(--forest-deep); }
   .btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* ── RESULTS SCREEN ── */
+  /* -- RESULTS SCREEN -- */
   #screen-results {
     background: linear-gradient(160deg, var(--cream) 40%, var(--sage-pale) 100%);
   }
@@ -482,7 +482,7 @@
     border-radius: 20px;
   }
 
-  /* ── LEAD FORM ── */
+  /* -- LEAD FORM -- */
   .lead-form-wrap {
     background: var(--white);
     border-radius: 16px;
@@ -549,7 +549,7 @@
     line-height: 1.5;
   }
 
-  /* ── THANK YOU SCREEN ── */
+  /* -- THANK YOU SCREEN -- */
   #screen-thankyou {
     justify-content: center;
     align-items: center;
@@ -599,7 +599,7 @@
   }
   .ty-cta:hover { background: var(--sage); border-color: var(--sage); color: var(--white); }
 
-  /* ── ZONE GRID ── */
+  /* -- ZONE GRID -- */
   .bodymap-zones {
     flex: 0 0 auto;
     width: 300px;
@@ -701,7 +701,7 @@
   }
   .zone-tile.selected .zone-check { display: flex; }
 
-  /* ── MOBILE ── */
+  /* -- MOBILE -- */
   @media (max-width: 680px) {
     .bodymap-inner { flex-direction: column; padding: 20px 16px; gap: 20px; }
     .bodymap-zones { width: 100%; }
@@ -714,9 +714,9 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
+<!-- ===========================================
      SCREEN 1: INTRO
-══════════════════════════════════════════ -->
+=========================================== -->
 <div id="screen-intro" class="screen active">
   <span class="intro-badge">Clinician-Led · Personalized Care</span>
   <h1 class="intro-title">Find Your<br><em>Treatment Plan</em></h1>
@@ -744,9 +744,9 @@
   </p>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ===========================================
      SCREEN 2: BODY MAP
-══════════════════════════════════════════ -->
+=========================================== -->
 <div id="screen-bodymap" class="screen">
   <div class="header">
     <div>
@@ -1263,9 +1263,9 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ===========================================
      SCREEN 3: RESULTS + LEAD FORM
-══════════════════════════════════════════ -->
+=========================================== -->
 <div id="screen-results" class="screen">
   <div class="header">
     <div>
@@ -1320,9 +1320,9 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
+<!-- ===========================================
      SCREEN 4: THANK YOU
-══════════════════════════════════════════ -->
+=========================================== -->
 <div id="screen-thankyou" class="screen">
   <div class="header" style="background:rgba(0,0,0,0.2);">
     <div>
@@ -1345,9 +1345,9 @@
 </div>
 
 <script>
-// ─────────────────────────────────────────
+// -----------------------------------------
 // DATA: Body areas and their concerns
-// ─────────────────────────────────────────
+// -----------------------------------------
 const bodyAreas = {
   head: {
     title: 'Head & Brain',
@@ -1426,9 +1426,9 @@ const bodyAreas = {
   }
 };
 
-// ─────────────────────────────────────────
+// -----------------------------------------
 // DATA: Services catalog
-// ─────────────────────────────────────────
+// -----------------------------------------
 const services = {
   metabolic: {
     name: 'Metabolic Clarity',
@@ -1456,7 +1456,7 @@ const services = {
   },
   quench: {
     name: 'Quench IV (Hydration)',
-    desc: 'Pure IV rehydration — ideal for dehydration, illness recovery, heat exhaustion, or general wellness.',
+    desc: 'Pure IV rehydration -- ideal for dehydration, illness recovery, heat exhaustion, or general wellness.',
     tag: 'IV Hydration',
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6 2 4 8 4 12c0 4.4 3.6 8 8 8s8-3.6 8-8c0-4-2-10-8-10z" stroke="#7a9e7e" stroke-width="2" fill="none"/></svg>`
   },
@@ -1468,7 +1468,7 @@ const services = {
   },
   glutathione: {
     name: 'Glutathione Injection',
-    desc: 'The master antioxidant — supports detoxification, liver health, skin clarity, and immune defense.',
+    desc: 'The master antioxidant -- supports detoxification, liver health, skin clarity, and immune defense.',
     tag: 'Injection',
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#7a9e7e" stroke-width="2"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#7a9e7e" stroke-width="1.5"/><circle cx="9" cy="10" r="1" fill="#7a9e7e"/><circle cx="15" cy="10" r="1" fill="#7a9e7e"/></svg>`
   },
@@ -1486,7 +1486,7 @@ const services = {
   },
   reboot: {
     name: 'Reboot IV',
-    desc: 'Formulated for rapid recovery from hangover, overexertion, or illness — rehydrate and replenish fast.',
+    desc: 'Formulated for rapid recovery from hangover, overexertion, or illness -- rehydrate and replenish fast.',
     tag: 'IV Hydration',
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="#7a9e7e" stroke-width="2" fill="none"/></svg>`
   },
@@ -1498,7 +1498,7 @@ const services = {
   },
   alleviate: {
     name: 'Alleviate IV',
-    desc: 'PMS relief formula with magnesium and B vitamins — designed to ease cramping, bloating, and mood shifts.',
+    desc: 'PMS relief formula with magnesium and B vitamins -- designed to ease cramping, bloating, and mood shifts.',
     tag: 'IV Hydration',
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#7a9e7e" stroke-width="2" fill="none"/></svg>`
   },
@@ -1510,16 +1510,16 @@ const services = {
   },
 };
 
-// ─────────────────────────────────────────
+// -----------------------------------------
 // STATE
-// ─────────────────────────────────────────
+// -----------------------------------------
 let currentArea = null;
 let selectedByArea = {}; // { areaKey: [concernObj, ...] }
 let pendingSelections = new Set(); // indices of currently-shown concern list
 
-// ─────────────────────────────────────────
+// -----------------------------------------
 // NAVIGATION
-// ─────────────────────────────────────────
+// -----------------------------------------
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -1531,9 +1531,9 @@ function goToResults() {
   showScreen('screen-results');
 }
 
-// ─────────────────────────────────────────
+// -----------------------------------------
 // BODY MAP LOGIC
-// ─────────────────────────────────────────
+// -----------------------------------------
 function openConcern(areaKey) {
   // Reset pending
   pendingSelections = new Set();
@@ -1628,9 +1628,9 @@ function updateGlobalCount() {
   }
 }
 
-// ─────────────────────────────────────────
+// -----------------------------------------
 // RESULTS LOGIC
-// ─────────────────────────────────────────
+// -----------------------------------------
 function buildResults() {
   // Tally service scores
   const scores = {};
@@ -1666,13 +1666,13 @@ function buildResults() {
   });
 }
 
-// ─────────────────────────────────────────
-// FORM SUBMIT — Web3Forms integration
-// ─────────────────────────────────────────
+// -----------------------------------------
+// FORM SUBMIT -- Web3Forms integration
+// -----------------------------------------
 
-// ⚠️  SETUP: Go to https://web3forms.com, enter ocwellness@ormandandcook.com,
+// !  SETUP: Go to https://web3forms.com, enter ocwellness@ormandandcook.com,
 //     and paste the access key you receive here:
-const WEB3FORMS_KEY = 380338ad-2a6a-4390-a262-4677e70cf40a;
+const WEB3FORMS_KEY = '380338ad-2a6a-4390-a262-4677e70cf40a';
 
 async function submitForm() {
   const fname = document.getElementById('fname').value.trim();
@@ -1690,7 +1690,7 @@ async function submitForm() {
     .filter(([, arr]) => arr.length > 0)
     .map(([area, concerns]) => {
       const areaName = bodyAreas[area]?.title || area;
-      const concernList = concerns.map(c => `  • ${c.text}`).join('\n');
+      const concernList = concerns.map(c => `  * ${c.text}`).join('\n');
       return `${areaName}:\n${concernList}`;
     }).join('\n\n');
 
@@ -1712,27 +1712,27 @@ async function submitForm() {
 
   const messageBody = `
 NEW TREATMENT PLAN SUBMISSION
-═══════════════════════════════
+===============================
 
 Patient: ${fname} ${lname}
 Email:   ${email}
 Phone:   ${phone || 'Not provided'}
 
-───────────────────────────────
+-------------------------------
 SELECTED CONCERNS
-───────────────────────────────
+-------------------------------
 ${concernSummary || 'None selected'}
 
-───────────────────────────────
+-------------------------------
 RECOMMENDED SERVICES
-───────────────────────────────
+-------------------------------
 ${recommendedServices || 'N/A'}
   `.trim();
 
   // Show loading state
   const btn = document.querySelector('.form-submit');
   const originalText = btn.textContent;
-  btn.textContent = 'Sending…';
+  btn.textContent = 'Sending...';
   btn.disabled = true;
   hideFormError();
 
@@ -1742,8 +1742,8 @@ ${recommendedServices || 'N/A'}
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         access_key: WEB3FORMS_KEY,
-        subject: `New Treatment Plan — ${fname} ${lname}`,
-        from_name: 'Ormand & Cook Wellness — Treatment Builder',
+        subject: `New Treatment Plan -- ${fname} ${lname}`,
+        from_name: 'Ormand & Cook Wellness -- Treatment Builder',
         replyto: email,
         message: messageBody,
         // Honeypot spam protection
@@ -1760,7 +1760,7 @@ ${recommendedServices || 'N/A'}
     }
   } catch (err) {
     console.error('Form error:', err);
-    showFormError('Something went wrong — please try again or call us directly.');
+    showFormError('Something went wrong -- please try again or call us directly.');
     btn.textContent = originalText;
     btn.disabled = false;
   }
