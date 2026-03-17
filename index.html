@@ -376,6 +376,106 @@
   }
   .selected-count span { color: var(--forest); font-weight: 500; }
 
+  /* -- TOAST NOTIFICATION -- */
+  .toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--forest);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast-check {
+    width: 20px; height: 20px;
+    background: var(--sage);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* -- CONCERN PANEL SAVED STATE -- */
+  .concern-panel.saved .concern-panel-saved-overlay {
+    display: flex;
+  }
+  .concern-panel-saved-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(238, 244, 238, 0.96);
+    border-radius: 16px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+    padding: 32px;
+    animation: fadeIn 0.25s ease;
+    z-index: 10;
+  }
+  .saved-check-circle {
+    width: 56px; height: 56px;
+    background: var(--forest);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .saved-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--forest);
+  }
+  .saved-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    max-width: 240px;
+  }
+  .saved-next-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--sage);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+  }
+  .btn-edit-concerns {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text-soft);
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 4px;
+    transition: all 0.2s;
+  }
+  .btn-edit-concerns:hover { border-color: var(--sage); color: var(--text-mid); }
+
   /* Selected concerns summary bar */
   .selected-bar {
     background: var(--forest);
@@ -1237,7 +1337,22 @@
 
     <!-- Right: Concern panel -->
     <div class="bodymap-right">
-      <div class="concern-panel" id="concernPanel">
+      <div class="concern-panel" id="concernPanel" style="position:relative;">
+        <!-- Saved confirmation overlay -->
+        <div class="concern-panel-saved-overlay" id="savedOverlay">
+          <div class="saved-check-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="saved-title">Saved!</div>
+          <div class="saved-subtitle" id="savedSummaryText"></div>
+          <div class="saved-next-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#7a9e7e" stroke-width="2.5" stroke-linecap="round"/></svg>
+            Select another area, or view your plan below
+          </div>
+          <button class="btn-edit-concerns" onclick="editConcerns()">Edit these selections</button>
+        </div>
         <div class="concern-panel-empty" id="emptyState">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#b5cdb7" stroke-width="1.5"/><path d="M12 8v4M12 16h.01" stroke="#b5cdb7" stroke-width="2"/></svg>
           <p class="arrow-hint">← Select a zone to begin</p>
@@ -1339,8 +1454,18 @@
       </div>
       <h2 class="ty-title">You're in<br><em>Good Hands.</em></h2>
       <p class="ty-sub">Thank you for trusting us with your wellness journey. One of our nurse practitioners will review your plan and reach out within 24 hours.</p>
-    </div>
+          </div>
   </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <div class="toast-check">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+      <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <span id="toastMsg">Concerns saved!</span>
 </div>
 
 <script>
@@ -1537,6 +1662,9 @@ function openConcern(areaKey) {
   // Reset pending
   pendingSelections = new Set();
 
+  // Hide saved overlay from any previous save
+  document.getElementById('concernPanel').classList.remove('saved');
+
   // Update zone tile states
   document.querySelectorAll('.zone-tile').forEach(h => h.classList.remove('active'));
   document.getElementById('hs-' + areaKey).classList.add('active');
@@ -1613,6 +1741,35 @@ function addConcerns() {
 
   // Update global count
   updateGlobalCount();
+
+  // Show saved feedback
+  const count = selectedByArea[currentArea].length;
+  if (count > 0) {
+    // Update overlay summary text
+    const names = selectedByArea[currentArea].map(c => c.text);
+    document.getElementById('savedSummaryText').textContent =
+      count === 1
+        ? `"${names[0]}" has been added to your plan.`
+        : `${count} concerns from ${area.title} have been added to your plan.`;
+
+    // Show the saved overlay on the panel
+    document.getElementById('concernPanel').classList.add('saved');
+
+    // Show toast
+    showToast(`${count} concern${count !== 1 ? 's' : ''} saved from ${area.title}`);
+  }
+}
+
+function editConcerns() {
+  // Hide the overlay so they can re-edit
+  document.getElementById('concernPanel').classList.remove('saved');
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 function updateGlobalCount() {
